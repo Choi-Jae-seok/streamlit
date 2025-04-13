@@ -22,7 +22,7 @@ if st.session_state.login_success:
             st.rerun()
 
 if not st.session_state.login_success:
-    st.title("🔐 로그인 필요")
+    st.title("🔐 로그인 필요 - DTP&GVC")
     username = st.text_input("사용자명")
     password = st.text_input("비밀번호", type="password")
     if st.button("로그인"):
