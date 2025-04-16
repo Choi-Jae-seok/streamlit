@@ -90,7 +90,7 @@ elif add_selectbox == "글로벌 공급망":
     tab1, tab2 = st.tabs(["수출입 기업 품목별 거래 정보 조회", "운송 공급망 조회"])
     with tab1:
         st.text("(준비중입니다)")
-        st.components.v1.html(tableau_embed1, height=1100)
+        st.components.v1.html(tableau_embed1, height=1820)
     with tab2:
         st.text("(준비중입니다)")
 
