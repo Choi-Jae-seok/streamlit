@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 st.markdown("""
     <style>
         .css-1d391kg {  /* 사이드바 넓이 */
@@ -20,6 +21,7 @@ tableau_embed2 = """
 <div class='tableauPlaceholder' id='viz1745908363406' style='position: relative'><noscript><a href='#'><img alt='대시보드 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;dt&#47;dtp_17459083346030&#47;1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='dtp_17459083346030&#47;1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;dt&#47;dtp_17459083346030&#47;1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1745908363406');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='900px';vizElement.style.height='1827px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='900px';vizElement.style.height='1827px';} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 """
 
+
 USER_CREDENTIALS = {
     "kdn": "kdn01"
 }
@@ -35,16 +37,20 @@ if st.session_state.login_success:
 
 if not st.session_state.login_success:
     st.title("🔐 로그인 필요")
-    username = st.text_input("사용자명")
-    password = st.text_input("비밀번호", type="password")
-    if st.button("로그인"):
-        if username in USER_CREDENTIALS and USER_CREDENTIALS[username] == password:
-            st.session_state.login_success = True
-            st.rerun()  # 로그인 성공 후 앱 새로 실행
-        else:
-            st.error("❌ 사용자명 또는 비밀번호가 잘못되었습니다.")
-    st.stop()  # 로그인 실패 시 이후 코드 실행 방지
 
+    with st.form("login_form"):
+        username = st.text_input("사용자명")
+        password = st.text_input("비밀번호", type="password")
+        submitted = st.form_submit_button("로그인")  #엔터키
+
+        if submitted:
+            if username in USER_CREDENTIALS and USER_CREDENTIALS[username] == password:
+                st.session_state.login_success = True
+                st.rerun()
+            else:
+                st.error("❌ 사용자명 또는 비밀번호가 잘못되었습니다.")
+
+    st.stop()
 
 
 with st.sidebar:
@@ -87,7 +93,7 @@ elif add_selectbox == "디지털 운송 여권":
     tab1, tab2 = st.tabs(["운송기록 조회", "추천경로 조회"])
     with tab1:
         st.text("(준비중입니다)")
-        st.components.v1.html(tableau_embed2, height=1100)
+        st.components.v1.html(tableau_embed2, height=1900)
     with tab2:
         st.text("(준비중입니다)")
         st.image("image/dtp2.png")
@@ -102,7 +108,7 @@ elif add_selectbox == "글로벌 공급망":
     tab1, tab2 = st.tabs(["수출입 기업 품목별 거래 정보 조회", "운송 공급망 조회"])
     with tab1:
         st.text("(준비중입니다)")
-        st.components.v1.html(tableau_embed1, height=1820)
+        st.components.v1.html(tableau_embed1, height=1900)
     with tab2:
         st.text("(준비중입니다)")
 
